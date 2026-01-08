@@ -1,8 +1,8 @@
-// test.js intentionally unformatted
-const obj = { foo: 'bar', baz: 'qux' };
+// test.js intentionally unformatted 
+const obj = {foo: "bar", baz: "qux"}
 
 function hello() {
-  console.log('Hello world');
+console.log(  'Hello world'  )
 }
 
 hello();

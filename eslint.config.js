@@ -1,7 +1,6 @@
 const js = require('@eslint/js');
 const globals = require('globals');
-const prettier = require('eslint-config-prettier');
-const prettierPlugin = require('eslint-plugin-prettier');
+const prettier = require('eslint-plugin-prettier/recommended');
 
 module.exports = [
   {
@@ -9,20 +8,22 @@ module.exports = [
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest', // Supports most recent stable ECMAScript features (optional chaining, nullish coalescing etc)
-      // Without this, when used in a NodeJS project, ESLint will flag common Node.js globals as undefined (process.env, require, module.exports etc)
+      // globals.node prevents ESLint from flaggin common Node.js globals as undefined (process.env, require, module.exports etc)
+      // globals.jest prevents ESLint from flaggin jest globals as undefined (describe, test, expect etc)
       globals: globals.node,
     },
-    plugins: {
-      // This plugin allows ESLint to run Prettier as a rule, meaning it will catch formatting flaws and allow us to fix them through eslint with `eslint --fix`
-      // This means we achieve full integration with, syntax, formatting and potential bug fix
-      prettier: prettierPlugin,
-    },
   },
+  // Jest specific configuration for test files only
   {
-    rules: {
-      // quotes: ["error", "double"], // Force double quotes,
-      'prettier/prettier': 'error',
+    files: ['**/*.test.js'],
+    languageOptions: {
+      globals: globals.jest,
     },
   },
-  prettier, // Prettier config should be placed last, to override any conflicting formatting rules from ESlint
+
+  // Disables any conflicting rules with Prettier from ESlint
+  // The `/recommended` allows ESLint to run Prettier as a rule, meaning it will catch formatting flaws and allow us to fix them through eslint with `eslint --fix`
+  // This means we achieve full integration with, syntax, formatting and potential bug fix
+  // Reference: https://github.com/prettier/eslint-plugin-prettier?tab=readme-ov-file#configuration-new-eslintconfigjs
+  prettier, // Should be placed last
 ];
