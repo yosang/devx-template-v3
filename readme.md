@@ -2,42 +2,34 @@
 
 This project serves as a demonstration of how to setup ESLint with Prettier, Jest and Github ACtions.
 
-## Installation & Configuration
+## Getting started
+Install NodeJS dependencies with `npm install` 
 
-### 1. Install Prettier
+Packages on this project:
 
-To install prettier use:
-
-```sh
-npm i -D prettier
-```
-
-### 2. Install Jest
-
-To install jest use:
-
-```sh
-npm i -D jest
-```
-
-### 3. Install ESlint with JavaScript, Prettier and Jest support.
-
-To install ESlint and the additional packages used in this config use:
-
-```sh
-npm i -D eslint @eslint/js globals eslint-plugin-prettier
-```
-
-Explanation of the packages:
-
+- `jest` - Jest core dependency 
+- `prettier` - Prettier core dependency
 - `eslint` - ESlint core dependency
 - `@eslint/js` - ESLint JavaScript implementation.
 - `globals` - Global identifiers for different JavaScript environments, like Node, Jest any many more...
-- `eslint-plugin-prettier` -
+- `eslint-plugin-prettier` - Disables ESlint formatting rules and allows Prettier to be exectued through ESlint as a rule.
 
-### Configuration
+### Prettier Configuration
 
-Create a file named `eslint.config.js` and add the following code
+In file `.prettierrc`
+
+```json
+{
+  "arrowParens": "always",
+  "semi": true,
+  "singleQuote": true
+}
+
+```
+
+### ESLint Configuration
+
+In file `eslint.config.js`
 
 ```js
 const js = require('@eslint/js');
@@ -65,7 +57,7 @@ module.exports = [
 
 ## Usage
 
-Scripts available are:
+The scripts available are:
 
 - `npm run format` to execute formatting rules through prettier
 - `npm run lint` to execute linting rules for syntax errors and potential bugs through ESlint.
